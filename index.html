@@ -1,850 +1,1251 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wellness Operation Quick Guide</title>
-<style>
-:root {
-  --bg: #fbf7f2;
-  --card: #ffffff;
-  --accent: #bfa68f;
-  --accent-soft: #e9dfd4;
-  --text: #333333;
-  --muted: #666666;
-}
-* { box-sizing:border-box; }
-body {
-  margin:0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-}
-header {
-  padding:18px 16px;
-  text-align:center;
-  background: linear-gradient(180deg, var(--accent), var(--accent-soft));
-  color:#2b2b2b;
-}
-h1 { margin:4px 0 0; font-size:1.25rem; }
-.container {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 12px 12px 60px;
-}
-.search-bar {
-  margin: 10px auto 16px;
-  position:sticky;
-  top:0;
-  z-index:10;
-}
-.search-bar input {
-  width:100%;
-  padding:10px 12px;
-  border-radius:999px;
-  border:1px solid #c0b2a5;
-  font-size:0.95rem;
-  box-shadow:0 2px 6px rgba(0,0,0,0.06);
-}
-.section {
-  margin-bottom:14px;
-}
-.section details {
-  border-radius:10px;
-  overflow:hidden;
-  background:transparent;
-  box-shadow:none;
-}
-.section summary {
-  list-style:none;
-  padding:11px 14px;
-  background: #fff;
-  border-radius:10px;
-  box-shadow:0 2px 8px rgba(0,0,0,0.06);
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  font-weight:600;
-  font-size:0.98rem;
-}
-.section summary::-webkit-details-marker { display:none; }
-.section-title-text {
-  display:flex;
-  align-items:center;
-  gap:6px;
-}
-.section-body {
-  padding:8px 6px 6px;
-}
-.items {
-  display:grid;
-  grid-template-columns:1fr;
-  gap:8px;
-}
-@media(min-width:720px){
-  .items { grid-template-columns:1fr 1fr; }
-}
-.card {
-  background: var(--card);
-  border-radius:10px;
-  padding:10px 11px;
-  box-shadow:0 3px 10px rgba(0,0,0,0.05);
-  display:flex;
-  flex-direction:column;
-  gap:4px;
-}
-.item-header {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-.item-title {
-  font-weight:600;
-  font-size:0.97rem;
-}
-.badge-emoji {
-  margin-right:4px;
-}
-.meta {
-  font-size:0.9rem;
-  color:var(--muted);
-}
-.note {
-  font-size:0.86rem;
-  color:var(--muted);
-  white-space:pre-line;
-  margin-top:4px;
-}
-.btn {
-  align-self:flex-end;
-  margin-top:6px;
-  padding:6px 10px;
-  border-radius:999px;
-  border:none;
-  background:var(--accent);
-  color:#fff;
-  font-size:0.82rem;
-  font-weight:600;
-  cursor:pointer;
-}
-.btn:hover {
-  filter:brightness(0.95);
-}
-.empty-state {
-  text-align:center;
-  font-size:0.9rem;
-  color:var(--muted);
-  margin-top:24px;
-}
-.modal-backdrop {
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.45);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:18px;
-  z-index:50;
-}
-.modal {
-  max-width:520px;
-  width:100%;
-  background:#fff;
-  border-radius:12px;
-  padding:16px 16px 14px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.25);
-  position:relative;
-}
-.modal h3 {
-  margin:4px 0 6px;
-  font-size:1.02rem;
-}
-.modal p {
-  font-size:0.9rem;
-  margin:6px 0;
-}
-.modal .note {
-  margin-top:2px;
-}
-.modal img {
-  margin-top:8px;
-  max-width:100%;
-  border-radius:8px;
-}
-.close-btn {
-  position:absolute;
-  top:8px;
-  right:10px;
-  border:none;
-  background:transparent;
-  font-size:1.2rem;
-  cursor:pointer;
-  color:#777;
-}
-footer {
-  text-align:center;
-  padding:12px 8px 16px;
-  font-size:0.8rem;
-  color:var(--muted);
-  border-top:1px solid #e0d7ce;
-  background:#f5eee6;
-  line-height:1.4;
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wellness Operation Quick Guide</title>
+  <style>
+    :root {
+      --bg-body: #f4f4f4;
+      --bg-card: #ffffff;
+      --border-card: #d7d7d7;
+      --accent: #1f7a8c;
+      --accent-soft: #e5f2f6;
+      --inst-bg: #eef6ff;
+      --inst-border: #2c6edb;
+      --note-bg: #fff7e6;
+      --note-border: #f0a12b;
+      --text-main: #333333;
+      --text-muted: #666666;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      margin: 0;
+      padding: 16px;
+      background: var(--bg-body);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 0 0 4px;
+      font-size: 24px;
+      letter-spacing: 0.08em;
+    }
+
+    .subtitle {
+      text-align: center;
+      margin: 0 0 12px;
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto 32px;
+    }
+
+    .search-wrap {
+      margin: 0 0 16px;
+    }
+    #guide-search {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid #cccccc;
+      font-size: 13px;
+      outline: none;
+    }
+    #guide-search:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(31, 122, 140, 0.15);
+    }
+
+    /* OUTER SECTION (GROUP) */
+    details.section-group {
+      background: var(--bg-card);
+      border-radius: 10px;
+      border: 1px solid var(--border-card);
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+    details.section-group[open] {
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+      border-color: var(--accent);
+    }
+
+    summary.section-summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      background: linear-gradient(to right, #ffffff, #f8fbfc);
+    }
+    summary.section-summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .summary-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .section-title {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .section-tagline {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .summary-icon {
+      font-size: 18px;
+      transform: rotate(0deg);
+      transition: transform 0.2s ease;
+    }
+    details[open] > summary .summary-icon {
+      transform: rotate(90deg);
+    }
+
+    .group-inner {
+      padding: 10px 10px 12px;
+      border-top: 1px solid #e4e4e4;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* INNER SECTION (ITEM) */
+    details.section-item {
+      background: #ffffff;
+      border-radius: 8px;
+      border: 1px solid var(--border-card);
+      padding: 0;
+      overflow: hidden;
+    }
+    details.section-item[open] {
+      border-color: var(--accent);
+    }
+
+    summary.section-item-summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      background: #ffffff;
+    }
+    summary.section-item-summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .item-inner {
+      padding: 10px 12px 12px;
+      border-top: 1px solid #e4e4e4;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .row {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    @media (min-width: 720px) {
+      .row {
+        flex-direction: row;
+        align-items: flex-start;
+      }
+    }
+
+    .block {
+      flex: 1;
+    }
+
+    .subheading {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin: 0 0 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .subheading span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .subheading.instruction {
+      color: var(--inst-border);
+    }
+    .subheading.instruction span.dot {
+      background: var(--inst-border);
+    }
+
+    .subheading.notes {
+      color: var(--note-border);
+    }
+    .subheading.notes span.dot {
+      background: var(--note-border);
+    }
+
+    .instruction-text,
+    .notes-text {
+      margin: 0;
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-size: 13px;
+    }
+
+    .instruction-text {
+      background: var(--inst-bg);
+      border-left: 3px solid var(--inst-border);
+    }
+
+    .notes-text {
+      background: var(--note-bg);
+      border-left: 3px solid var(--note-border);
+    }
+
+    .photo-box {
+      margin-top: 8px;
+      border-radius: 8px;
+      border: 1px dashed #cccccc;
+      background: #fafafa;
+      padding: 0;
+    }
+
+    .photo-box > summary {
+      cursor: pointer;
+      list-style: none;
+      padding: 8px 10px;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+    .photo-box > summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .photo-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+    }
+
+    .photo-label span.icon {
+      font-size: 16px;
+    }
+
+    .photo-hint {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .photo-box[open] {
+      background: #f5f7f8;
+    }
+
+    .photo-content {
+      padding: 0 10px 10px;
+    }
+
+    .photo-content img {
+      max-width: 100%;
+      border-radius: 6px;
+      display: block;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-muted);
+      padding-top: 10px;
+      border-top: 1px solid #dddddd;
+      margin-top: 16px;
+    }
+  </style>
 </head>
 <body>
-<header>
-  <h1>Wellness Operation Quick Guide</h1>
-</header>
-<div class="container">
-  <div class="search-bar">
-    <input id="searchInput" type="search" placeholder="Search tasks, e.g. towel, locker, BGM..." />
-  </div>
-  <div id="sectionsContainer">
-
-<div class="section">
-<details>
-<summary><div class="section-title-text">♨️ Onsen</div></summary>
-<div class="section-body"><div class="items">
-<div class="card" data-key="🥛 used cups bring to dishwasher at lvl 5. pull out from machine and let dry after washed. can leave in the white tub on water dispenser if there are not many.
-if the white tub is full please follow full instruction." data-modal="modal-1">
-<div class="item-header">
-<div class="item-title"><span class="badge-emoji">🥛</span>Used Cups</div>
-</div>
-<div class="meta">Bring to dishwasher at lvl 5. Pull out from machine and let dry after washed.</div>
-<div class="note">Can leave in the white tub on water dispenser if there are not many.
-If the white tub is full please follow full instruction.</div>
-<button class="btn" type="button" data-modal-trigger="modal-1">Details</button>
-</div>
-<div class="card" data-key="🧖 used towels put in blue bags and take to lvl 1 towel area, leave blue bags in the green cart. never let the used towel bin get overflowing with towels." data-modal="modal-2">
-<div class="item-header">
-<div class="item-title"><span class="badge-emoji">🧖</span>Used Towels</div>
-</div>
-<div class="meta">Put in Blue bags and take to lvl 1 towel area, leave blue bags in the green cart.</div>
-<div class="note">Never let the used towel bin get overflowing with towels.</div>
-<button class="btn" type="button" data-modal-trigger="modal-2">Details</button>
-</div>
-<div class="card" data-key="🚨 restock towels / clean cups / dry amenities towel and clean cup stock in the cupboard, dry amenities are under the basin. please restock every time and make sure all fully restocked. " data-modal="modal-3">
-<div class="item-header">
-<div class="item-title"><span class="badge-emoji">🚨</span>Restock towels / clean cups / dry amenities</div>
-</div>
-<div class="meta">Towel and clean cup stock in the cupboard, dry amenities are under the basin. Please restock every time and make sure all fully restocked.</div>
-<button class="btn" type="button" data-modal-trigger="modal-3">Details</button>
-</div>
-<div class="card" data-key="🔓 locker use locker key to open the locker in change/shoes area, reset the lockers to 0000 every time. check inside of the locker and make sure nothing is left behind." data-modal="modal-4">
-<div class="item-header">
-<div class="item-title"><span class="badge-emoji">🔓</span>Locker</div>
-</div>
-<div class="meta">Use locker key to open the locker in change/shoes area, reset the lockers to 0000 every time.</div>
-<div class="note">Check inside of the locker and make sure nothing is left behind.</div>
-<button class="btn" type="button" data-modal-trigger="modal-4">Details</button>
-</div>
-<div class="card" data-key="♨️ onsen pools and shower area check change to slipper (in water dispenser cupboard), check inside onsen and bring out any used towel/cups/garbage left inside. " data-modal="modal-5">
-<div class="item-header">
-<div class="item-title"><span class="badge-emoji">♨️</span>Onsen pools and shower area check</div>
-</div>
-<div class="meta">Change to slipper (in water dispenser cupboard), check inside Onsen and bring out any used towel/cups/garbage left inside.</div>
-<button class="btn" type="button" data-modal-trigger="modal-5">Details</button>
-</div>
-<div class="card" data-key="🧼 icor amenities refill with containers in locker #10. back up bottles are placed in resting area cupboard. all bottles are supposed to be full every morning.
-pm shift should refill all bottles during closing.
-if any big container in locker #10 gets empty please bring to ph gym room for refill." data-modal="modal-6">
-<div class="item-header">
-<div class="item-title"><span class="badge-emoji">🧼</span>ICOR amenities</div>
-</div>
-<div class="meta">Refill with containers in locker #10. Back up bottles are placed in resting area cupboard.</div>
-<div class="note">All bottles are supposed to be full every morning.
-PM shift should refill all bottles during closing.
-If any big container in locker #10 gets empty please bring to PH gym room for refill.</div>
-<button class="btn" type="button" data-modal-trigger="modal-6">Details</button>
-</div>
-<div class="card" data-key="💧 drinking water check water dispenser every time and make sure it’s enough for the next hour. always have 1 spare water tank in the cupboard.
-daiohs water tank are stocked in ph gym / main storage." data-modal="modal-7">
-<div class="item-header">
-<div class="item-title"><span class="badge-emoji">💧</span>Drinking water</div>
-</div>
-<div class="meta">Check water dispenser every time and make sure it’s enough for the next hour.</div>
-<div class="note">Always have 1 spare water tank in the cupboard.
-Daiohs water tank are stocked in PH gym / main storage.</div>
-<button class="btn" type="button" data-modal-trigger="modal-7">Details</button>
-</div>
-<div class="card" data-key="🪞 mirror and weight scale check the 4 mirrors at onsen basin and the scale on the floor. please make sure the batteries are working and that the scale functions properly. if the batteries are dead, please replace them with the spare ones at the spa." data-modal="modal-8">
-<div class="item-header">
-<div class="item-title"><span class="badge-emoji">🪞</span>Mirror and weight scale</div>
-</div>
-<div class="meta">Check the 4 mirrors at Onsen basin and the scale on the floor. Please make sure the batteries are working and that the scale functions properly.</div>
-<div class="note">If the batteries are dead, please replace them with the spare ones at the spa.</div>
-<button class="btn" type="button" data-modal-trigger="modal-8">Details</button>
-</div>
-<div class="card" data-key="💈 hair dryer make sure all 4 hair dryers in onsen are placed correctly and not damaged/missing. " data-modal="modal-9">
-<div class="item-header">
-<div class="item-title"><span class="badge-emoji">💈</span>Hair dryer</div>
-</div>
-<div class="meta">Make sure all 4 hair dryers in Onsen are placed correctly and not damaged/missing.</div>
-<button class="btn" type="button" data-modal-trigger="modal-9">Details</button>
-</div>
-</div></div>
-</details></div>
-<div class="section">
-<details>
-<summary><div class="section-title-text">🚿 Pool Changing Room</div></summary>
-<div class="section-body"><div class="items">
-<div class="card" data-key="🥛 used cups bring to dishwasher at lvl 5. pull out from machine and let dry after washed. can leave in the white tub in the cupboard if there are not many.
-if the white tub is full please follow instruction." data-modal="modal-10">
-<div class="item-header">
-<div class="item-title"><span class="badge-emoji">🥛</span>Used Cups</div>
-</div>
-<div class="meta">Bring to dishwasher at lvl 5. Pull out from machine and let dry after washed.</div>
-<div class="note">Can leave in the white tub in the cupboard if there are not many.
-If the white tub is full please follow instruction.</div>
-<button class="btn" type="button" data-modal-trigger="modal-10">Details</button>
-</div>
-<div class="card" data-key="🧖 used towels put in blue bags in changing room storage and take to lvl 1 towel area when blue bag is full. leave blue bags in the green cart. " data-modal="modal-11">
-<div class="item-header">
-<div class="item-title"><span class="badge-emoji">🧖</span>Used Towels</div>
-</div>
-<div class="meta">Put in Blue bags in changing room storage and take to lvl 1 towel area when blue bag is full. Leave blue bags in the green cart.</div>
-<button class="btn" type="button" data-modal-trigger="modal-11">Details</button>
-</div>
-<div class="card" data-key="🚨 restock towels / clean cups / dry amenities get clean towels from the black towel cart outside of male changing room and top up. clean cups stock in the cupboard below, dry amenities are under the basin. please restock every time and make sure all amenities are restocked neatly. " data-modal="modal-12">
-<div class="item-header">
-<div class="item-title"><span class="badge-emoji">🚨</span>Restock towels / clean cups / dry amenities</div>
-</div>
-<div class="meta">Get clean towels from the black towel cart outside of male changing room and top up. Clean cups stock in the cupboard below, dry amenities are under the basin. Please restock every time and make sure all amenities are restocked neatly.</div>
-<button class="btn" type="button" data-modal-trigger="modal-12">Details</button>
-</div>
-<div class="card" data-key="🔓 locker use locker key to open the locker in change/shoes area, reset the lockers to 0000 every time. " data-modal="modal-13">
-<div class="item-header">
-<div class="item-title"><span class="badge-emoji">🔓</span>Locker</div>
-</div>
-<div class="meta">Use locker key to open the locker in change/shoes area, reset the lockers to 0000 every time.</div>
-<button class="btn" type="button" data-modal-trigger="modal-13">Details</button>
-</div>
-<div class="card" data-key="🧼 icor amenities refill with containers in locker #13. back up bottles are also placed in locker #13. all bottles are supposed to be full every morning.
-pm shift please refill the bottles during closing.
-if any big container in locker #13 gets empty please bring to ph gym room for refill." data-modal="modal-14">
-<div class="item-header">
-<div class="item-title"><span class="badge-emoji">🧼</span>ICOR amenities</div>
-</div>
-<div class="meta">Refill with containers in locker #13. Back up bottles are also placed in locker #13.</div>
-<div class="note">All bottles are supposed to be full every morning.
-PM shift please refill the bottles during closing.
-If any big container in locker #13 gets empty please bring to PH gym room for refill.</div>
-<button class="btn" type="button" data-modal-trigger="modal-14">Details</button>
-</div>
-<div class="card" data-key="🪒 other amenities plastic laundry bags and swimming caps amenities are stored in the secret storage near the entrance, please restock neatly in the tray. waterproof diapers are also kept in secret cupboard. make sure we have folded laundry bags stock in secret cupboard always." data-modal="modal-15">
-<div class="item-header">
-<div class="item-title"><span class="badge-emoji">🪒</span>Other amenities</div>
-</div>
-<div class="meta">Plastic laundry bags and swimming caps amenities are stored in the secret storage near the entrance, please restock neatly in the tray. Waterproof diapers are also kept in secret cupboard.</div>
-<div class="note">Make sure we have folded laundry bags stock in secret cupboard always.</div>
-<button class="btn" type="button" data-modal-trigger="modal-15">Details</button>
-</div>
-<div class="card" data-key="🧖‍♀️ steam sauna check steam sauna every time for cleanliness. add few drops of essential oil (placed in storage room) into the tray twice a day to make sure it smells refreshing. " data-modal="modal-16">
-<div class="item-header">
-<div class="item-title"><span class="badge-emoji">🧖‍♀️</span>Steam sauna</div>
-</div>
-<div class="meta">Check steam sauna every time for cleanliness. Add few drops of essential oil (placed in storage room) into the tray twice a day to make sure it smells refreshing.</div>
-<button class="btn" type="button" data-modal-trigger="modal-16">Details</button>
-</div>
-<div class="card" data-key="💧 drinking water check water dispenser every time and make sure it’s enough for the next hour. always have 1 spare water tank in the secret storage.
-daiohs water tank are stocked in ph gym / main storage." data-modal="modal-17">
-<div class="item-header">
-<div class="item-title"><span class="badge-emoji">💧</span>Drinking water</div>
-</div>
-<div class="meta">Check water dispenser every time and make sure it’s enough for the next hour.</div>
-<div class="note">Always have 1 spare water tank in the secret storage.
-Daiohs water tank are stocked in PH gym / main storage.</div>
-<button class="btn" type="button" data-modal-trigger="modal-17">Details</button>
-</div>
-<div class="card" data-key="🩱 swim suit drying machine located in both changing rooms. put in swim suits and push the button at least 5 seconds for drying. make sure no swim suits are left inside. check the water container below the machine, and empty the water when it’s half full.
-machine will stop working if the water container reaches its limit." data-modal="modal-18">
-<div class="item-header">
-<div class="item-title"><span class="badge-emoji">🩱</span>Swim suit drying machine</div>
-</div>
-<div class="meta">Located in both changing rooms. Put in swim suits and push the button at least 5 seconds for drying. Make sure no swim suits are left inside.</div>
-<div class="note">Check the water container below the machine, and empty the water when it’s half full.
-Machine will stop working if the water container reaches its limit.</div>
-<button class="btn" type="button" data-modal-trigger="modal-18">Details</button>
-</div>
-<div class="card" data-key="🪞 mirror and weight scale check the 2 mirrors in the pool changing room and the scale on the floor. please make sure the batteries are working and that the scale functions properly. if the batteries are dead, please replace them with the spare ones at the spa." data-modal="modal-19">
-<div class="item-header">
-<div class="item-title"><span class="badge-emoji">🪞</span>Mirror and weight scale</div>
-</div>
-<div class="meta">Check the 2 mirrors in the pool changing room and the scale on the floor. Please make sure the batteries are working and that the scale functions properly.</div>
-<div class="note">If the batteries are dead, please replace them with the spare ones at the spa.</div>
-<button class="btn" type="button" data-modal-trigger="modal-19">Details</button>
-</div>
-<div class="card" data-key="💈 hair dryer make sure all 2 hair dryers in changing room are placed correctly and not damaged/missing. " data-modal="modal-20">
-<div class="item-header">
-<div class="item-title"><span class="badge-emoji">💈</span>Hair dryer</div>
-</div>
-<div class="meta">Make sure all 2 hair dryers in changing room are placed correctly and not damaged/missing.</div>
-<button class="btn" type="button" data-modal-trigger="modal-20">Details</button>
-</div>
-</div></div>
-</details></div>
-<div class="section">
-<details>
-<summary><div class="section-title-text">🏊🏼 Pool</div></summary>
-<div class="section-body"><div class="items">
-<div class="card" data-key="🛟 poolside amenities make sure the arm rings / float boards / vests are arranged neatly and presentable on both sides of the pool. any item left on the floor or in the pool please pick up and tidy immediately. back up arm rings / floats / vests are in the secret storage of both changing rooms. restock if any item went missing." data-modal="modal-21">
-<div class="item-header">
-<div class="item-title"><span class="badge-emoji">🛟</span>Poolside amenities</div>
-</div>
-<div class="meta">Make sure the arm rings / float boards / vests are arranged neatly and presentable on both sides of the pool. Any item left on the floor or in the pool please pick up and tidy immediately.</div>
-<div class="note">Back up arm rings / floats / vests are in the secret storage of both changing rooms. Restock if any item went missing.</div>
-<button class="btn" type="button" data-modal-trigger="modal-21">Details</button>
-</div>
-<div class="card" data-key="🩴 lounges make sure no used towel / used cup / garbage is left in poolside lounges area every time when checking. " data-modal="modal-22">
-<div class="item-header">
-<div class="item-title"><span class="badge-emoji">🩴</span>Lounges</div>
-</div>
-<div class="meta">Make sure no used towel / used cup / garbage is left in poolside lounges area every time when checking.</div>
-<button class="btn" type="button" data-modal-trigger="modal-22">Details</button>
-</div>
-<div class="card" data-key="🧽 tools pool cleaning machines (poole) and net tools should be kept in the storage room in pool area. brushes, buckets or chemicals are in the storage of both changing rooms. " data-modal="modal-23">
-<div class="item-header">
-<div class="item-title"><span class="badge-emoji">🧽</span>Tools</div>
-</div>
-<div class="meta">Pool cleaning machines (Poole) and net tools should be kept in the storage room in pool area. Brushes, buckets or chemicals are in the storage of both changing rooms.</div>
-<button class="btn" type="button" data-modal-trigger="modal-23">Details</button>
-</div>
-</div></div>
-</details></div>
-<div class="section">
-<details>
-<summary><div class="section-title-text">🏋️ Gyms</div></summary>
-<div class="section-body"><div class="items">
-<div class="card" data-key="💧 drinking water chilled and room temperature canned water (itoen) should always be fully stocked in / next to the fridges in both gyms. check water dispensers and make sure the water in water tanks are enough for the next hour every time. ph gym - canned water and daiohs water tank stock are in gym storage room.
-br gym - canned water and daiohs water tank stock are in boh area." data-modal="modal-24">
-<div class="item-header">
-<div class="item-title"><span class="badge-emoji">💧</span>Drinking water</div>
-</div>
-<div class="meta">Chilled and room temperature canned water (Itoen) should always be fully stocked in / next to the fridges in both gyms. Check water dispensers and make sure the water in water tanks are enough for the next hour every time.</div>
-<div class="note">PH gym - Canned water and Daiohs water tank stock are in gym storage room.
-BR gym - Canned water and Daiohs water tank stock are in BOH area.</div>
-<button class="btn" type="button" data-modal-trigger="modal-24">Details</button>
-</div>
-<div class="card" data-key="💪 machine and weights make sure the machines are always clean and all weights are lined up correctly and clean. move the plates left on smith machine back on the racks. " data-modal="modal-25">
-<div class="item-header">
-<div class="item-title"><span class="badge-emoji">💪</span>Machine and weights</div>
-</div>
-<div class="meta">Make sure the machines are always clean and all weights are lined up correctly and clean. Move the plates left on smith machine back on the racks.</div>
-<button class="btn" type="button" data-modal-trigger="modal-25">Details</button>
-</div>
-<div class="card" data-key="💦 towels gym sweat towels should be fully restored and displayed neatly always. folded gym towels are placed in the cupboards near the entrance in both gyms." data-modal="modal-26">
-<div class="item-header">
-<div class="item-title"><span class="badge-emoji">💦</span>Towels</div>
-</div>
-<div class="meta">Gym sweat towels should be fully restored and displayed neatly always.</div>
-<div class="note">Folded gym towels are placed in the cupboards near the entrance in both gyms.</div>
-<button class="btn" type="button" data-modal-trigger="modal-26">Details</button>
-</div>
-<div class="card" data-key="🍎 fruit amenity pick up 10 each fruits from ird in the morning, display nicely in fruits bowls and put out 5 each in ph gym, 3 each in br gym. keep the rest fruits in the ph gym storage room fridge. remove any overripe fruits in fruit bowls.
-you can refill again in the evening if we have any spare fruits left." data-modal="modal-27">
-<div class="item-header">
-<div class="item-title"><span class="badge-emoji">🍎</span>Fruit amenity</div>
-</div>
-<div class="meta">Pick up 10 each fruits from IRD in the morning, display nicely in fruits bowls and put out 5 each in PH gym, 3 each in BR gym. Keep the rest fruits in the PH gym storage room fridge.</div>
-<div class="note">Remove any overripe fruits in fruit bowls.
-You can refill again in the evening if we have any spare fruits left.</div>
-<button class="btn" type="button" data-modal-trigger="modal-27">Details</button>
-</div>
-<div class="card" data-key="🧖‍♂️ oshibori wet dry oshibori towels and roll them up by following the guide. always leave 12 oshibori (2 layers) in the fridge. ph gym - oshibori towels are in gym room, could have back up folded ones in the small fridge cabinet.
-br gym - oshibori towels are in boh area, can bring out to gym and fold." data-modal="modal-28">
-<div class="item-header">
-<div class="item-title"><span class="badge-emoji">🧖‍♂️</span>Oshibori</div>
-</div>
-<div class="meta">Wet dry Oshibori towels and roll them up by following the guide. Always leave 12 Oshibori (2 layers) in the fridge.</div>
-<div class="note">PH gym - Oshibori towels are in gym room, could have back up folded ones in the small fridge cabinet.
-BR gym - Oshibori towels are in BOH area, can bring out to gym and fold.</div>
-<button class="btn" type="button" data-modal-trigger="modal-28">Details</button>
-</div>
-<div class="card" data-key="🧹 cleaning tools gym should be cleaned and sanitized once an hour. clean machines and equipment with green cleaning cloth, and wipe down mirrors with blue cloth or glass cleaning tool. ph gym - cleaning tools are kept in ph gym room.
-br gym - cleaning tools are kept in the cupboard, next to used towel bin." data-modal="modal-29">
-<div class="item-header">
-<div class="item-title"><span class="badge-emoji">🧹</span>Cleaning tools</div>
-</div>
-<div class="meta">Gym should be cleaned and sanitized once an hour. Clean machines and equipment with green cleaning cloth, and wipe down mirrors with blue cloth or glass cleaning tool.</div>
-<div class="note">PH gym - Cleaning tools are kept in PH gym room.
-BR gym - Cleaning tools are kept in the cupboard, next to used towel bin.</div>
-<button class="btn" type="button" data-modal-trigger="modal-29">Details</button>
-</div>
-<div class="card" data-key="🚮 garbage and used towels take out any garbage / food waste and empty towels / canned bin every day during closing. used gym towels: put in blue bag and leave in green cart at lvl 1. (blue bags in br side are in boh area.)
-used oshibori: gather in plastic bag and bring to uniform room, leave in the box (marked “oshibori”) at the bottom of the shelf.
-used canned water: put in plastic bag and bring to garage area at lvl 1, put on sticker after weight then leave it in the correct waste-sorting bin.
-food waste: gather all food waste with the biodegradable garbage bag, weigh and put on sticker at lvl 1 garbage area, leave in the fridge room." data-modal="modal-30">
-<div class="item-header">
-<div class="item-title"><span class="badge-emoji">🚮</span>Garbage and used towels</div>
-</div>
-<div class="meta">Take out any garbage / food waste and empty towels / canned bin every day during closing.</div>
-<div class="note">Used gym towels: Put in blue bag and leave in green cart at lvl 1. (Blue bags in BR side are in BOH area.)
-Used Oshibori: Gather in plastic bag and bring to uniform room, leave in the box (marked “Oshibori”) at the bottom of the shelf.
-Used canned water: Put in plastic bag and bring to garage area at lvl 1, put on sticker after weight then leave it in the correct waste-sorting bin.
-Food waste: Gather all food waste with the biodegradable garbage bag, weigh and put on sticker at lvl 1 garbage area, leave in the fridge room.</div>
-<button class="btn" type="button" data-modal-trigger="modal-30">Details</button>
-</div>
-<div class="card" data-key="🌡️ temperature the temperature in both gyms should always be 22–23 °c. any temperature lower or higher than 22–23 °c please create hotsos or call eng directly to adjust. " data-modal="modal-31">
-<div class="item-header">
-<div class="item-title"><span class="badge-emoji">🌡️</span>Temperature</div>
-</div>
-<div class="meta">The temperature in both gyms should always be 22–23 °C. Any temperature lower or higher than 22–23 °C please create HOTSOS or call ENG directly to adjust.</div>
-<button class="btn" type="button" data-modal-trigger="modal-31">Details</button>
-</div>
-<div class="card" data-key="🎵 bgm bgm in both gyms is playing 24 hours. if the music is not working please check the music control machine or contact eng for checking. ph gym - music channel should be channel 3, 4 or 5.
-br gym - music channel should be channel 1, 7 or 8." data-modal="modal-32">
-<div class="item-header">
-<div class="item-title"><span class="badge-emoji">🎵</span>BGM</div>
-</div>
-<div class="meta">BGM in both gyms is playing 24 hours. If the music is not working please check the music control machine or contact ENG for checking.</div>
-<div class="note">PH gym - Music channel should be channel 3, 4 or 5.
-BR gym - Music channel should be channel 1, 7 or 8.</div>
-<button class="btn" type="button" data-modal-trigger="modal-32">Details</button>
-</div>
-</div></div>
-</details></div>
-<div class="section">
-<details>
-<summary><div class="section-title-text">🧺 Lost &amp; Found</div></summary>
-<div class="section-body"><div class="items">
-<div class="card" data-key="🧳 lost and found items fill in the l&amp;f sheets and bring to housekeeping office. message in l&amp;f chat with picture and details in teams. " data-modal="modal-33">
-<div class="item-header">
-<div class="item-title"><span class="badge-emoji">🧳</span>Lost and Found Items</div>
-</div>
-<div class="meta">Fill in the L&amp;F sheets and bring to Housekeeping office. Message in L&amp;F chat with picture and details in Teams.</div>
-<button class="btn" type="button" data-modal-trigger="modal-33">Details</button>
-</div>
-<div class="card" data-key="🪪 lost room keys bring directly to front desk. " data-modal="modal-34">
-<div class="item-header">
-<div class="item-title"><span class="badge-emoji">🪪</span>Lost Room keys</div>
-</div>
-<div class="meta">Bring directly to front desk.</div>
-<button class="btn" type="button" data-modal-trigger="modal-34">Details</button>
-</div>
-</div></div>
-</details></div>
-<div class="section">
-<details>
-<summary><div class="section-title-text">🧴 Stock &amp; Supply Check</div></summary>
-<div class="section-body"><div class="items">
-<div class="card" data-key="🪥 no dry amenities check ph gym storage room and restock, inform wellness attendant in teams. refill immediately after the last set is taken." data-modal="modal-35">
-<div class="item-header">
-<div class="item-title"><span class="badge-emoji">🪥</span>No Dry Amenities</div>
-</div>
-<div class="meta">Check PH gym storage room and restock, inform wellness attendant in Teams.</div>
-<div class="note">Refill immediately after the last set is taken.</div>
-<button class="btn" type="button" data-modal-trigger="modal-35">Details</button>
-</div>
-</div></div>
-</details></div>
-
-    <div id="noResults" class="empty-state" style="display:none;">
-      No matches found. Try a different keyword.
+  <div class="container">
+    <h1>WELLNESS OPERATION QUICK GUIDE</h1>
+    <p class="subtitle">Wellness · Daily Operation Reference</p>
+    <div class="search-wrap">
+      <input type="search" id="guide-search" placeholder="Search keyword..." />
     </div>
+    <details class="section-group">
+      <summary class="section-summary">
+        <div class="summary-left">
+          <span class="section-title">♨ Section 1 · Onsen</span>
+          <span class="section-tagline">Onsen area daily checklist</span>
+        </div>
+        <span class="summary-icon">▶</span>
+      </summary>
+      <div class="group-inner">
+        <details class="section-item">
+          <summary class="section-item-summary">
+            <div class="summary-left">
+              <span class="section-title">1. 🥛 Used Cups</span>
+              <span class="section-tagline">Collect and wash used cups at onsen</span>
+            </div>
+            <span class="summary-icon">▶</span>
+          </summary>
+          <div class="item-inner">
+            <div class="row">
+              <div class="block">
+                <h3 class="subheading instruction"><span class="dot"></span>Instruction</h3>
+                <p class="instruction-text">Bring used cups to the dishwasher on level 5. After the cycle finishes, pull the cups out of the machine and let them air-dry.</p>
+              </div>
+              <div class="block">
+                <h3 class="subheading notes"><span class="dot"></span>Notes</h3>
+                <p class="notes-text">If there are only a few cups, you may leave them in the white tub on the water dispenser. If the tub is full, follow the instruction above and take them to the dishwasher.</p>
+              </div>
+            </div>
+            <details class="photo-box">
+              <summary>
+                <span class="photo-label"><span class="icon">📷</span>Reference Photo</span>
+                <span class="photo-hint">Tap to view / close</span>
+              </summary>
+              <div class="photo-content">
+                <img src="images/page-02.jpg" alt="1. 🥛 Used Cups reference" />
+              </div>
+            </details>
+          </div>
+        </details>
+        <details class="section-item">
+          <summary class="section-item-summary">
+            <div class="summary-left">
+              <span class="section-title">2. 🧖 Used Towels</span>
+              <span class="section-tagline">Collect and send used towels to level 1</span>
+            </div>
+            <span class="summary-icon">▶</span>
+          </summary>
+          <div class="item-inner">
+            <div class="row">
+              <div class="block">
+                <h3 class="subheading instruction"><span class="dot"></span>Instruction</h3>
+                <p class="instruction-text">Put used towels into blue bags and take them to the level 1 towel area. Leave the blue bags in the green cart.</p>
+              </div>
+              <div class="block">
+                <h3 class="subheading notes"><span class="dot"></span>Notes</h3>
+                <p class="notes-text">Never allow the used towel bin to overflow. Check it regularly and clear it before it becomes too full.</p>
+              </div>
+            </div>
+            <details class="photo-box">
+              <summary>
+                <span class="photo-label"><span class="icon">📷</span>Reference Photo</span>
+                <span class="photo-hint">Tap to view / close</span>
+              </summary>
+              <div class="photo-content">
+                <img src="images/page-04.jpg" alt="2. 🧖 Used Towels reference" />
+              </div>
+            </details>
+          </div>
+        </details>
+        <details class="section-item">
+          <summary class="section-item-summary">
+            <div class="summary-left">
+              <span class="section-title">3. 🚨 Restock Towels / Clean Cups / Dry Amenities</span>
+              <span class="section-tagline">Ensure guests always have enough clean items</span>
+            </div>
+            <span class="summary-icon">▶</span>
+          </summary>
+          <div class="item-inner">
+            <div class="row">
+              <div class="block">
+                <h3 class="subheading instruction"><span class="dot"></span>Instruction</h3>
+                <p class="instruction-text">Towels and clean cups are stocked in the cupboard. Dry amenities are stored under the basin. Restock every time you check and make sure all items are fully topped up and neatly arranged.</p>
+              </div>
+              <div class="block">
+                <h3 class="subheading notes"><span class="dot"></span>Notes</h3>
+                <p class="notes-text">Always leave the shelves looking full and tidy. Replace any damaged or dirty items immediately.</p>
+              </div>
+            </div>
+            <details class="photo-box">
+              <summary>
+                <span class="photo-label"><span class="icon">📷</span>Reference Photo</span>
+                <span class="photo-hint">Tap to view / close</span>
+              </summary>
+              <div class="photo-content">
+                <img src="images/page-06.jpg" alt="3. 🚨 Restock Towels / Clean Cups / Dry Amenities reference" />
+              </div>
+            </details>
+          </div>
+        </details>
+        <details class="section-item">
+          <summary class="section-item-summary">
+            <div class="summary-left">
+              <span class="section-title">4. 🔓 Lockers</span>
+              <span class="section-tagline">Reset and check all lockers in the changing area</span>
+            </div>
+            <span class="summary-icon">▶</span>
+          </summary>
+          <div class="item-inner">
+            <div class="row">
+              <div class="block">
+                <h3 class="subheading instruction"><span class="dot"></span>Instruction</h3>
+                <p class="instruction-text">Use the locker key to open all lockers in the changing and shoes area, then reset each locker to 0000.</p>
+              </div>
+              <div class="block">
+                <h3 class="subheading notes"><span class="dot"></span>Notes</h3>
+                <p class="notes-text">Check inside every locker and make sure nothing has been left behind by guests.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details class="section-item">
+          <summary class="section-item-summary">
+            <div class="summary-left">
+              <span class="section-title">5. ♨ Onsen Pool & Shower Area Check</span>
+              <span class="section-tagline">Keep the wet area clean and free of used items</span>
+            </div>
+            <span class="summary-icon">▶</span>
+          </summary>
+          <div class="item-inner">
+            <div class="row">
+              <div class="block">
+                <h3 class="subheading instruction"><span class="dot"></span>Instruction</h3>
+                <p class="instruction-text">Change into slippers from the water dispenser cupboard, enter the onsen area, and remove any used towels, cups, or garbage. Bring everything out and dispose of or sort it properly.</p>
+              </div>
+              <div class="block">
+                <h3 class="subheading notes"><span class="dot"></span>Notes</h3>
+                <p class="notes-text">Pay extra attention to corners and behind benches where guests may leave items unnoticed.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details class="section-item">
+          <summary class="section-item-summary">
+            <div class="summary-left">
+              <span class="section-title">6. 🧼 ICOR Amenities</span>
+              <span class="section-tagline">Refill all bath and shower bottles</span>
+            </div>
+            <span class="summary-icon">▶</span>
+          </summary>
+          <div class="item-inner">
+            <div class="row">
+              <div class="block">
+                <h3 class="subheading instruction"><span class="dot"></span>Instruction</h3>
+                <p class="instruction-text">Refill the ICOR bottles using the large containers stored in locker #10. Backup bottles are kept in the resting area cupboard.</p>
+              </div>
+              <div class="block">
+                <h3 class="subheading notes"><span class="dot"></span>Notes</h3>
+                <p class="notes-text">All bottles should be full every morning. The PM shift should refill them during closing. If any large container in locker #10 becomes empty, bring it to the PH gym room for refilling.</p>
+              </div>
+            </div>
+            <details class="photo-box">
+              <summary>
+                <span class="photo-label"><span class="icon">📷</span>Reference Photo</span>
+                <span class="photo-hint">Tap to view / close</span>
+              </summary>
+              <div class="photo-content">
+                <img src="images/page-12.jpg" alt="6. 🧼 ICOR Amenities reference" />
+              </div>
+            </details>
+          </div>
+        </details>
+        <details class="section-item">
+          <summary class="section-item-summary">
+            <div class="summary-left">
+              <span class="section-title">7. 💧 Drinking Water</span>
+              <span class="section-tagline">Check onsen water dispenser and spare tank</span>
+            </div>
+            <span class="summary-icon">▶</span>
+          </summary>
+          <div class="item-inner">
+            <div class="row">
+              <div class="block">
+                <h3 class="subheading instruction"><span class="dot"></span>Instruction</h3>
+                <p class="instruction-text">Check the water dispenser each time and make sure there is enough water for at least the next hour.</p>
+              </div>
+              <div class="block">
+                <h3 class="subheading notes"><span class="dot"></span>Notes</h3>
+                <p class="notes-text">Always keep one spare water tank in the cupboard. Daiohs water tanks are stored in the PH gym and main storage.</p>
+              </div>
+            </div>
+            <details class="photo-box">
+              <summary>
+                <span class="photo-label"><span class="icon">📷</span>Reference Photo</span>
+                <span class="photo-hint">Tap to view / close</span>
+              </summary>
+              <div class="photo-content">
+                <img src="images/page-13.jpg" alt="7. 💧 Drinking Water reference" />
+              </div>
+            </details>
+          </div>
+        </details>
+        <details class="section-item">
+          <summary class="section-item-summary">
+            <div class="summary-left">
+              <span class="section-title">8. 🪞 Mirrors & Weight Scale</span>
+              <span class="section-tagline">Check mirrors and body weight scale at onsen basin</span>
+            </div>
+            <span class="summary-icon">▶</span>
+          </summary>
+          <div class="item-inner">
+            <div class="row">
+              <div class="block">
+                <h3 class="subheading instruction"><span class="dot"></span>Instruction</h3>
+                <p class="instruction-text">Check the four mirrors at the onsen basin and the scale on the floor. Make sure the scale powers on and works properly.</p>
+              </div>
+              <div class="block">
+                <h3 class="subheading notes"><span class="dot"></span>Notes</h3>
+                <p class="notes-text">If the batteries are dead, replace them with the spare batteries kept at the spa.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details class="section-item">
+          <summary class="section-item-summary">
+            <div class="summary-left">
+              <span class="section-title">9. 💈 Hair Dryers</span>
+              <span class="section-tagline">Make sure all onsen hair dryers are ready for use</span>
+            </div>
+            <span class="summary-icon">▶</span>
+          </summary>
+          <div class="item-inner">
+            <div class="row">
+              <div class="block">
+                <h3 class="subheading instruction"><span class="dot"></span>Instruction</h3>
+                <p class="instruction-text">Confirm that all four hair dryers in the onsen area are correctly placed, functioning, and not damaged or missing.</p>
+              </div>
+              <div class="block">
+                <h3 class="subheading notes"><span class="dot"></span>Notes</h3>
+                <p class="notes-text">Wipe the handles and surrounding area if they look wet or dirty.</p>
+              </div>
+            </div>
+            <details class="photo-box">
+              <summary>
+                <span class="photo-label"><span class="icon">📷</span>Reference Photo</span>
+                <span class="photo-hint">Tap to view / close</span>
+              </summary>
+              <div class="photo-content">
+                <img src="images/page-17.jpg" alt="9. 💈 Hair Dryers reference" />
+              </div>
+            </details>
+          </div>
+        </details>
+      </div>
+    </details>
+    <details class="section-group">
+      <summary class="section-summary">
+        <div class="summary-left">
+          <span class="section-title">🚿 Section 2 · Pool Changing Room</span>
+          <span class="section-tagline">Pool changing room checklist</span>
+        </div>
+        <span class="summary-icon">▶</span>
+      </summary>
+      <div class="group-inner">
+        <details class="section-item">
+          <summary class="section-item-summary">
+            <div class="summary-left">
+              <span class="section-title">1. 🥛 Used Cups</span>
+              <span class="section-tagline">Collect and wash used cups in changing room</span>
+            </div>
+            <span class="summary-icon">▶</span>
+          </summary>
+          <div class="item-inner">
+            <div class="row">
+              <div class="block">
+                <h3 class="subheading instruction"><span class="dot"></span>Instruction</h3>
+                <p class="instruction-text">Bring used cups to the dishwasher on level 5. After washing, pull them out and let them air-dry.</p>
+              </div>
+              <div class="block">
+                <h3 class="subheading notes"><span class="dot"></span>Notes</h3>
+                <p class="notes-text">If there are only a few cups, you may leave them in the white tub in the cupboard. If the tub is full, take them to the dishwasher.</p>
+              </div>
+            </div>
+            <details class="photo-box">
+              <summary>
+                <span class="photo-label"><span class="icon">📷</span>Reference Photo</span>
+                <span class="photo-hint">Tap to view / close</span>
+              </summary>
+              <div class="photo-content">
+                <img src="images/page-18.jpg" alt="1. 🥛 Used Cups reference" />
+              </div>
+            </details>
+          </div>
+        </details>
+        <details class="section-item">
+          <summary class="section-item-summary">
+            <div class="summary-left">
+              <span class="section-title">2. 🧖 Used Towels</span>
+              <span class="section-tagline">Collect used towels and send to level 1</span>
+            </div>
+            <span class="summary-icon">▶</span>
+          </summary>
+          <div class="item-inner">
+            <div class="row">
+              <div class="block">
+                <h3 class="subheading instruction"><span class="dot"></span>Instruction</h3>
+                <p class="instruction-text">Put used towels into blue bags stored in the changing room storage. When a blue bag is full, take it to the level 1 towel area and leave it in the green cart.</p>
+              </div>
+              <div class="block">
+                <h3 class="subheading notes"><span class="dot"></span>Notes</h3>
+                <p class="notes-text">Do not leave full blue bags in the changing room area. Clear them promptly.</p>
+              </div>
+            </div>
+            <details class="photo-box">
+              <summary>
+                <span class="photo-label"><span class="icon">📷</span>Reference Photo</span>
+                <span class="photo-hint">Tap to view / close</span>
+              </summary>
+              <div class="photo-content">
+                <img src="images/page-20.jpg" alt="2. 🧖 Used Towels reference" />
+              </div>
+            </details>
+          </div>
+        </details>
+        <details class="section-item">
+          <summary class="section-item-summary">
+            <div class="summary-left">
+              <span class="section-title">3. 🚨 Restock Towels / Clean Cups / Dry Amenities</span>
+              <span class="section-tagline">Keep changing room amenities fully stocked</span>
+            </div>
+            <span class="summary-icon">▶</span>
+          </summary>
+          <div class="item-inner">
+            <div class="row">
+              <div class="block">
+                <h3 class="subheading instruction"><span class="dot"></span>Instruction</h3>
+                <p class="instruction-text">Get clean towels from the black towel cart outside the male changing room and top up the shelves. Clean cups are stocked in the cupboard below, and dry amenities are stored under the basin.</p>
+              </div>
+              <div class="block">
+                <h3 class="subheading notes"><span class="dot"></span>Notes</h3>
+                <p class="notes-text">Restock every time you check and make sure all amenities are neatly arranged.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details class="section-item">
+          <summary class="section-item-summary">
+            <div class="summary-left">
+              <span class="section-title">4. 🔓 Lockers</span>
+              <span class="section-tagline">Reset and check lockers in changing and shoes area</span>
+            </div>
+            <span class="summary-icon">▶</span>
+          </summary>
+          <div class="item-inner">
+            <div class="row">
+              <div class="block">
+                <h3 class="subheading instruction"><span class="dot"></span>Instruction</h3>
+                <p class="instruction-text">Use the locker key to open all lockers in the changing and shoes area, then reset each locker to 0000.</p>
+              </div>
+              <div class="block">
+                <h3 class="subheading notes"><span class="dot"></span>Notes</h3>
+                <p class="notes-text">Check inside each locker and make sure no guest items are left inside.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details class="section-item">
+          <summary class="section-item-summary">
+            <div class="summary-left">
+              <span class="section-title">5. 🧼 ICOR Amenities</span>
+              <span class="section-tagline">Refill amenities in pool changing room</span>
+            </div>
+            <span class="summary-icon">▶</span>
+          </summary>
+          <div class="item-inner">
+            <div class="row">
+              <div class="block">
+                <h3 class="subheading instruction"><span class="dot"></span>Instruction</h3>
+                <p class="instruction-text">Refill the ICOR bottles using the containers stored in locker #13. Backup bottles are also placed in locker #13.</p>
+              </div>
+              <div class="block">
+                <h3 class="subheading notes"><span class="dot"></span>Notes</h3>
+                <p class="notes-text">All bottles should be full every morning. The PM shift should refill them during closing. If any big container in locker #13 becomes empty, bring it to the PH gym room for refilling.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details class="section-item">
+          <summary class="section-item-summary">
+            <div class="summary-left">
+              <span class="section-title">6. 🪒 Other Amenities</span>
+              <span class="section-tagline">Laundry bags, swimming caps, waterproof diapers</span>
+            </div>
+            <span class="summary-icon">▶</span>
+          </summary>
+          <div class="item-inner">
+            <div class="row">
+              <div class="block">
+                <h3 class="subheading instruction"><span class="dot"></span>Instruction</h3>
+                <p class="instruction-text">Plastic laundry bags and swimming caps are stored in the secret storage near the entrance. Restock them neatly in the tray. Waterproof diapers are also kept in the secret cupboard.</p>
+              </div>
+              <div class="block">
+                <h3 class="subheading notes"><span class="dot"></span>Notes</h3>
+                <p class="notes-text">Always keep a stock of folded laundry bags in the secret cupboard.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details class="section-item">
+          <summary class="section-item-summary">
+            <div class="summary-left">
+              <span class="section-title">7. 🧖 Steam Sauna</span>
+              <span class="section-tagline">Maintain cleanliness and aroma</span>
+            </div>
+            <span class="summary-icon">▶</span>
+          </summary>
+          <div class="item-inner">
+            <div class="row">
+              <div class="block">
+                <h3 class="subheading instruction"><span class="dot"></span>Instruction</h3>
+                <p class="instruction-text">Check the steam sauna every time for cleanliness. Add a few drops of essential oil from the storage room into the tray twice a day so it smells fresh.</p>
+              </div>
+              <div class="block">
+                <h3 class="subheading notes"><span class="dot"></span>Notes</h3>
+                <p class="notes-text">Wipe any excess water on benches or floor to avoid slippery areas.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details class="section-item">
+          <summary class="section-item-summary">
+            <div class="summary-left">
+              <span class="section-title">8. 💧 Drinking Water</span>
+              <span class="section-tagline">Check changing room water dispenser</span>
+            </div>
+            <span class="summary-icon">▶</span>
+          </summary>
+          <div class="item-inner">
+            <div class="row">
+              <div class="block">
+                <h3 class="subheading instruction"><span class="dot"></span>Instruction</h3>
+                <p class="instruction-text">Check the water dispenser every time and make sure there is enough water for at least the next hour.</p>
+              </div>
+              <div class="block">
+                <h3 class="subheading notes"><span class="dot"></span>Notes</h3>
+                <p class="notes-text">Always keep one spare water tank in the secret storage. Daiohs water tanks are stored in the PH gym and main storage.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details class="section-item">
+          <summary class="section-item-summary">
+            <div class="summary-left">
+              <span class="section-title">9. 🩱 Swimsuit Drying Machine</span>
+              <span class="section-tagline">Keep drying machines working and empty</span>
+            </div>
+            <span class="summary-icon">▶</span>
+          </summary>
+          <div class="item-inner">
+            <div class="row">
+              <div class="block">
+                <h3 class="subheading instruction"><span class="dot"></span>Instruction</h3>
+                <p class="instruction-text">Each changing room has a swimsuit drying machine. Put swimsuits inside and press the button for at least five seconds to start drying. Make sure no swimsuits are left inside after use.</p>
+              </div>
+              <div class="block">
+                <h3 class="subheading notes"><span class="dot"></span>Notes</h3>
+                <p class="notes-text">Check the water container below the machine and empty it when it is half full. The machine will stop working if the water container reaches its limit.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details class="section-item">
+          <summary class="section-item-summary">
+            <div class="summary-left">
+              <span class="section-title">10. 🪞 Mirrors & Weight Scale</span>
+              <span class="section-tagline">Check mirrors and scale in changing room</span>
+            </div>
+            <span class="summary-icon">▶</span>
+          </summary>
+          <div class="item-inner">
+            <div class="row">
+              <div class="block">
+                <h3 class="subheading instruction"><span class="dot"></span>Instruction</h3>
+                <p class="instruction-text">Check the mirrors at the basin and the body weight scale on the floor. Make sure the scale powers on and works properly.</p>
+              </div>
+              <div class="block">
+                <h3 class="subheading notes"><span class="dot"></span>Notes</h3>
+                <p class="notes-text">If the batteries are dead, replace them with the spare batteries kept at the spa.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details class="section-item">
+          <summary class="section-item-summary">
+            <div class="summary-left">
+              <span class="section-title">11. 💈 Hair Dryers</span>
+              <span class="section-tagline">Check hair dryers in changing room</span>
+            </div>
+            <span class="summary-icon">▶</span>
+          </summary>
+          <div class="item-inner">
+            <div class="row">
+              <div class="block">
+                <h3 class="subheading instruction"><span class="dot"></span>Instruction</h3>
+                <p class="instruction-text">Make sure both hair dryers in the changing room are correctly placed and are not damaged or missing.</p>
+              </div>
+              <div class="block">
+                <h3 class="subheading notes"><span class="dot"></span>Notes</h3>
+                <p class="notes-text">Wipe handles and nearby surfaces if they appear wet or dirty.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </details>
+    <details class="section-group">
+      <summary class="section-summary">
+        <div class="summary-left">
+          <span class="section-title">🏊 Section 3 · Pool</span>
+          <span class="section-tagline">Pool area checklist</span>
+        </div>
+        <span class="summary-icon">▶</span>
+      </summary>
+      <div class="group-inner">
+        <details class="section-item">
+          <summary class="section-item-summary">
+            <div class="summary-left">
+              <span class="section-title">1. 🛟 Poolside Amenities</span>
+              <span class="section-tagline">Arrange floats and vests neatly</span>
+            </div>
+            <span class="summary-icon">▶</span>
+          </summary>
+          <div class="item-inner">
+            <div class="row">
+              <div class="block">
+                <h3 class="subheading instruction"><span class="dot"></span>Instruction</h3>
+                <p class="instruction-text">Make sure the arm rings, float boards, and vests are arranged neatly and look presentable on both sides of the pool. Pick up any items left on the floor or in the pool immediately.</p>
+              </div>
+              <div class="block">
+                <h3 class="subheading notes"><span class="dot"></span>Notes</h3>
+                <p class="notes-text">Backup arm rings, floats, and vests are stored in the secret storage in each changing room. Restock if any items are missing.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details class="section-item">
+          <summary class="section-item-summary">
+            <div class="summary-left">
+              <span class="section-title">2. 🩴 Lounges</span>
+              <span class="section-tagline">Keep poolside lounges clean</span>
+            </div>
+            <span class="summary-icon">▶</span>
+          </summary>
+          <div class="item-inner">
+            <div class="row">
+              <div class="block">
+                <h3 class="subheading instruction"><span class="dot"></span>Instruction</h3>
+                <p class="instruction-text">Check the poolside lounges and make sure there are no used towels, used cups, or garbage left on or around the chairs.</p>
+              </div>
+              <div class="block">
+                <h3 class="subheading notes"><span class="dot"></span>Notes</h3>
+                <p class="notes-text">Straighten the lounges and arrange them neatly after you clear items.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details class="section-item">
+          <summary class="section-item-summary">
+            <div class="summary-left">
+              <span class="section-title">3. 🧽 Tools</span>
+              <span class="section-tagline">Store pool cleaning tools properly</span>
+            </div>
+            <span class="summary-icon">▶</span>
+          </summary>
+          <div class="item-inner">
+            <div class="row">
+              <div class="block">
+                <h3 class="subheading instruction"><span class="dot"></span>Instruction</h3>
+                <p class="instruction-text">Keep the pool cleaning machines (Poole) and net tools in the storage room in the pool area. Store brushes, buckets, and chemicals in the storage area of each changing room.</p>
+              </div>
+              <div class="block">
+                <h3 class="subheading notes"><span class="dot"></span>Notes</h3>
+                <p class="notes-text">Always return tools to their designated storage spots after use.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </details>
+    <details class="section-group">
+      <summary class="section-summary">
+        <div class="summary-left">
+          <span class="section-title">🏋 Section 4 · Gyms</span>
+          <span class="section-tagline">Gym daily checklist</span>
+        </div>
+        <span class="summary-icon">▶</span>
+      </summary>
+      <div class="group-inner">
+        <details class="section-item">
+          <summary class="section-item-summary">
+            <div class="summary-left">
+              <span class="section-title">1. 💧 Drinking Water</span>
+              <span class="section-tagline">Canned water and dispensers in both gyms</span>
+            </div>
+            <span class="summary-icon">▶</span>
+          </summary>
+          <div class="item-inner">
+            <div class="row">
+              <div class="block">
+                <h3 class="subheading instruction"><span class="dot"></span>Instruction</h3>
+                <p class="instruction-text">Ensure chilled and room temperature canned water (Itoen) are fully stocked in or next to the fridges in both gyms. Check the water dispensers and make sure the water tanks have enough water for at least the next hour.</p>
+              </div>
+              <div class="block">
+                <h3 class="subheading notes"><span class="dot"></span>Notes</h3>
+                <p class="notes-text">PH gym: canned water and Daiohs water tanks are stored in the gym storage room. BR gym: canned water and Daiohs water tanks are stored in the BOH area.</p>
+              </div>
+            </div>
+            <details class="photo-box">
+              <summary>
+                <span class="photo-label"><span class="icon">📷</span>Reference Photo</span>
+                <span class="photo-hint">Tap to view / close</span>
+              </summary>
+              <div class="photo-content">
+                <img src="images/page-43.jpg" alt="1. 💧 Drinking Water reference" />
+              </div>
+            </details>
+          </div>
+        </details>
+        <details class="section-item">
+          <summary class="section-item-summary">
+            <div class="summary-left">
+              <span class="section-title">2. 💪 Machines & Weights</span>
+              <span class="section-tagline">Keep machines clean and weights organized</span>
+            </div>
+            <span class="summary-icon">▶</span>
+          </summary>
+          <div class="item-inner">
+            <div class="row">
+              <div class="block">
+                <h3 class="subheading instruction"><span class="dot"></span>Instruction</h3>
+                <p class="instruction-text">Make sure the machines are always clean and all weights are lined up correctly and clean.</p>
+              </div>
+              <div class="block">
+                <h3 class="subheading notes"><span class="dot"></span>Notes</h3>
+                <p class="notes-text">Move any plates left on the smith machine back onto the racks.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details class="section-item">
+          <summary class="section-item-summary">
+            <div class="summary-left">
+              <span class="section-title">3. 💦 Towels</span>
+              <span class="section-tagline">Gym sweat towel display</span>
+            </div>
+            <span class="summary-icon">▶</span>
+          </summary>
+          <div class="item-inner">
+            <div class="row">
+              <div class="block">
+                <h3 class="subheading instruction"><span class="dot"></span>Instruction</h3>
+                <p class="instruction-text">Gym sweat towels should always be fully restocked and displayed neatly.</p>
+              </div>
+              <div class="block">
+                <h3 class="subheading notes"><span class="dot"></span>Notes</h3>
+                <p class="notes-text">Folded gym towels are kept in the cupboards near the entrance in both gyms.</p>
+              </div>
+            </div>
+            <details class="photo-box">
+              <summary>
+                <span class="photo-label"><span class="icon">📷</span>Reference Photo</span>
+                <span class="photo-hint">Tap to view / close</span>
+              </summary>
+              <div class="photo-content">
+                <img src="images/page-45.jpg" alt="3. 💦 Towels reference" />
+              </div>
+            </details>
+          </div>
+        </details>
+        <details class="section-item">
+          <summary class="section-item-summary">
+            <div class="summary-left">
+              <span class="section-title">4. 🍎 Fruit Amenity</span>
+              <span class="section-tagline">Daily fruit setup for both gyms</span>
+            </div>
+            <span class="summary-icon">▶</span>
+          </summary>
+          <div class="item-inner">
+            <div class="row">
+              <div class="block">
+                <h3 class="subheading instruction"><span class="dot"></span>Instruction</h3>
+                <p class="instruction-text">In the morning, pick up 10 pieces each of the selected fruits from the pastry fridge. Arrange them nicely in fruit bowls and put out 5 of each in the PH gym and 3 of each in the BR gym. Keep the remaining fruits in the PH gym storage room fridge.</p>
+              </div>
+              <div class="block">
+                <h3 class="subheading notes"><span class="dot"></span>Notes</h3>
+                <p class="notes-text">Remove any overripe fruits from the bowls. If there are spare fruits left, you may refill the bowls again in the evening.</p>
+              </div>
+            </div>
+            <details class="photo-box">
+              <summary>
+                <span class="photo-label"><span class="icon">📷</span>Reference Photo</span>
+                <span class="photo-hint">Tap to view / close</span>
+              </summary>
+              <div class="photo-content">
+                <img src="images/page-46.jpg" alt="4. 🍎 Fruit Amenity reference" />
+              </div>
+            </details>
+          </div>
+        </details>
+        <details class="section-item">
+          <summary class="section-item-summary">
+            <div class="summary-left">
+              <span class="section-title">5. 🧖 Oshibori</span>
+              <span class="section-tagline">Cold towel preparation</span>
+            </div>
+            <span class="summary-icon">▶</span>
+          </summary>
+          <div class="item-inner">
+            <div class="row">
+              <div class="block">
+                <h3 class="subheading instruction"><span class="dot"></span>Instruction</h3>
+                <p class="instruction-text">Wet the dry oshibori towels and roll them up according to the guide. Always keep 12 oshibori (two layers) in the fridge.</p>
+              </div>
+              <div class="block">
+                <h3 class="subheading notes"><span class="dot"></span>Notes</h3>
+                <p class="notes-text">PH gym: oshibori towels are in the gym room; you may keep backup folded ones in the small fridge cabinet. BR gym: oshibori towels are in the BOH area; bring them out to the gym for folding.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details class="section-item">
+          <summary class="section-item-summary">
+            <div class="summary-left">
+              <span class="section-title">6. 🧹 Cleaning Tools</span>
+              <span class="section-tagline">Hourly gym cleaning routine</span>
+            </div>
+            <span class="summary-icon">▶</span>
+          </summary>
+          <div class="item-inner">
+            <div class="row">
+              <div class="block">
+                <h3 class="subheading instruction"><span class="dot"></span>Instruction</h3>
+                <p class="instruction-text">Clean and sanitize the gym once every hour. Wipe machines and equipment with a green cleaning cloth, and clean the mirrors with a blue cloth or glass cleaning tool.</p>
+              </div>
+              <div class="block">
+                <h3 class="subheading notes"><span class="dot"></span>Notes</h3>
+                <p class="notes-text">PH gym: cleaning tools are kept in the PH gym room. BR gym: cleaning tools are kept in the cupboard next to the used towel bin.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details class="section-item">
+          <summary class="section-item-summary">
+            <div class="summary-left">
+              <span class="section-title">7. 🚮 Garbage & Used Towels</span>
+              <span class="section-tagline">Closing routine for waste and laundry</span>
+            </div>
+            <span class="summary-icon">▶</span>
+          </summary>
+          <div class="item-inner">
+            <div class="row">
+              <div class="block">
+                <h3 class="subheading instruction"><span class="dot"></span>Instruction</h3>
+                <p class="instruction-text">During closing, take out all garbage and food waste and empty all towel and canned water bins.</p>
+              </div>
+              <div class="block">
+                <h3 class="subheading notes"><span class="dot"></span>Notes</h3>
+                <p class="notes-text">Used gym towels: put in a blue bag and leave in the green cart on level 1. Used oshibori: gather in a plastic bag and bring to the uniform room; leave them in the box marked “Oshibori” on the bottom shelf. Used canned water: put in a plastic bag and bring to the garage area on level 1, weigh and place a sticker, then leave it in the correct waste-sorting bin. Food waste: gather in a biodegradable garbage bag, weigh and label it in the level 1 garbage area, then leave it in the fridge room.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details class="section-item">
+          <summary class="section-item-summary">
+            <div class="summary-left">
+              <span class="section-title">8. 🌡 Temperature</span>
+              <span class="section-tagline">Gym temperature control</span>
+            </div>
+            <span class="summary-icon">▶</span>
+          </summary>
+          <div class="item-inner">
+            <div class="row">
+              <div class="block">
+                <h3 class="subheading instruction"><span class="dot"></span>Instruction</h3>
+                <p class="instruction-text">The temperature in both gyms should always be kept between 22–23°C.</p>
+              </div>
+              <div class="block">
+                <h3 class="subheading notes"><span class="dot"></span>Notes</h3>
+                <p class="notes-text">If the temperature is lower or higher than 22–23°C, create a HOTSOS request or call ENG directly to adjust it.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details class="section-item">
+          <summary class="section-item-summary">
+            <div class="summary-left">
+              <span class="section-title">9. 🎵 BGM</span>
+              <span class="section-tagline">Gym background music</span>
+            </div>
+            <span class="summary-icon">▶</span>
+          </summary>
+          <div class="item-inner">
+            <div class="row">
+              <div class="block">
+                <h3 class="subheading instruction"><span class="dot"></span>Instruction</h3>
+                <p class="instruction-text">Background music in both gyms should be playing 24 hours a day. If the music is not working, check the music control machine or contact ENG for support.</p>
+              </div>
+              <div class="block">
+                <h3 class="subheading notes"><span class="dot"></span>Notes</h3>
+                <p class="notes-text">PH gym: use music channels 3, 4, or 5. BR gym: use music channels 1, 7, or 8.</p>
+              </div>
+            </div>
+            <details class="photo-box">
+              <summary>
+                <span class="photo-label"><span class="icon">📷</span>Reference Photo</span>
+                <span class="photo-hint">Tap to view / close</span>
+              </summary>
+              <div class="photo-content">
+                <img src="images/page-58.jpg" alt="9. 🎵 BGM reference" />
+              </div>
+            </details>
+          </div>
+        </details>
+      </div>
+    </details>
+    <details class="section-group">
+      <summary class="section-summary">
+        <div class="summary-left">
+          <span class="section-title">🧺 Section 5 · Lost & Found</span>
+          <span class="section-tagline">Lost & Found handling</span>
+        </div>
+        <span class="summary-icon">▶</span>
+      </summary>
+      <div class="group-inner">
+        <details class="section-item">
+          <summary class="section-item-summary">
+            <div class="summary-left">
+              <span class="section-title">1. 🧳 Lost & Found Items</span>
+              <span class="section-tagline">Handling general lost items</span>
+            </div>
+            <span class="summary-icon">▶</span>
+          </summary>
+          <div class="item-inner">
+            <div class="row">
+              <div class="block">
+                <h3 class="subheading instruction"><span class="dot"></span>Instruction</h3>
+                <p class="instruction-text">Fill in the Lost & Found sheets and bring the items to the Housekeeping office. Post a message in the Lost & Found chat in Teams with a picture and details of the item.</p>
+              </div>
+              <div class="block">
+                <h3 class="subheading notes"><span class="dot"></span>Notes</h3>
+                <p class="notes-text">Include the date, location found, and a short description of the item in your Teams message.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details class="section-item">
+          <summary class="section-item-summary">
+            <div class="summary-left">
+              <span class="section-title">2. 🪪 Lost Room Keys</span>
+              <span class="section-tagline">Handling lost room keys</span>
+            </div>
+            <span class="summary-icon">▶</span>
+          </summary>
+          <div class="item-inner">
+            <div class="row">
+              <div class="block">
+                <h3 class="subheading instruction"><span class="dot"></span>Instruction</h3>
+                <p class="instruction-text">Bring any lost room keys directly to the front desk.</p>
+              </div>
+              <div class="block">
+                <h3 class="subheading notes"><span class="dot"></span>Notes</h3>
+                <p class="notes-text">Do not leave room keys in the general Lost & Found area.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </details>
+    <details class="section-group">
+      <summary class="section-summary">
+        <div class="summary-left">
+          <span class="section-title">🧴 Section 6 · Stock & Supply Check</span>
+          <span class="section-tagline">Stock & supply monitoring</span>
+        </div>
+        <span class="summary-icon">▶</span>
+      </summary>
+      <div class="group-inner">
+        <details class="section-item">
+          <summary class="section-item-summary">
+            <div class="summary-left">
+              <span class="section-title">1. 🪥 No Dry Amenities</span>
+              <span class="section-tagline">Dry amenity stock check</span>
+            </div>
+            <span class="summary-icon">▶</span>
+          </summary>
+          <div class="item-inner">
+            <div class="row">
+              <div class="block">
+                <h3 class="subheading instruction"><span class="dot"></span>Instruction</h3>
+                <p class="instruction-text">Check the PH gym storage room for dry amenities and restock as needed. Inform the wellness attendant in Teams if stock is running low.</p>
+              </div>
+              <div class="block">
+                <h3 class="subheading notes"><span class="dot"></span>Notes</h3>
+                <p class="notes-text">Refill immediately after the last set is taken so we never run out during service.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </details>
+
+    <footer>
+      Wellness Team 2025 · Internal Use Only<br />
+      Version 1 by JT
+    </footer>
   </div>
-</div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Close all details (groups + items + photos)
+      document.querySelectorAll('details').forEach(function (d) {
+        d.removeAttribute('open');
+      });
 
-<div id="modalBackdrop" class="modal-backdrop"></div>
+      var input = document.getElementById('guide-search');
+      if (!input) return;
 
-<div id="modal-1" class="modal" style="display:none;">
-<button class="close-btn" type="button" data-close="1">&times;</button>
-<h3>🥛 Used Cups</h3>
-<p><strong>Instruction:</strong> Bring to dishwasher at lvl 5. Pull out from machine and let dry after washed.</p>
-<p class="note"><strong>Note:</strong>
-Can leave in the white tub on water dispenser if there are not many.
-If the white tub is full please follow full instruction.</p>
-<img src="images/used-cups.png" alt="Used Cups">
-</div>
-<div id="modal-2" class="modal" style="display:none;">
-<button class="close-btn" type="button" data-close="1">&times;</button>
-<h3>🧖 Used Towels</h3>
-<p><strong>Instruction:</strong> Put in Blue bags and take to lvl 1 towel area, leave blue bags in the green cart.</p>
-<p class="note"><strong>Note:</strong>
-Never let the used towel bin get overflowing with towels.</p>
-</div>
-<div id="modal-3" class="modal" style="display:none;">
-<button class="close-btn" type="button" data-close="1">&times;</button>
-<h3>🚨 Restock towels / clean cups / dry amenities</h3>
-<p><strong>Instruction:</strong> Towel and clean cup stock in the cupboard, dry amenities are under the basin. Please restock every time and make sure all fully restocked.</p>
-</div>
-<div id="modal-4" class="modal" style="display:none;">
-<button class="close-btn" type="button" data-close="1">&times;</button>
-<h3>🔓 Locker</h3>
-<p><strong>Instruction:</strong> Use locker key to open the locker in change/shoes area, reset the lockers to 0000 every time.</p>
-<p class="note"><strong>Note:</strong>
-Check inside of the locker and make sure nothing is left behind.</p>
-</div>
-<div id="modal-5" class="modal" style="display:none;">
-<button class="close-btn" type="button" data-close="1">&times;</button>
-<h3>♨️ Onsen pools and shower area check</h3>
-<p><strong>Instruction:</strong> Change to slipper (in water dispenser cupboard), check inside Onsen and bring out any used towel/cups/garbage left inside.</p>
-</div>
-<div id="modal-6" class="modal" style="display:none;">
-<button class="close-btn" type="button" data-close="1">&times;</button>
-<h3>🧼 ICOR amenities</h3>
-<p><strong>Instruction:</strong> Refill with containers in locker #10. Back up bottles are placed in resting area cupboard.</p>
-<p class="note"><strong>Note:</strong>
-All bottles are supposed to be full every morning.
-PM shift should refill all bottles during closing.
-If any big container in locker #10 gets empty please bring to PH gym room for refill.</p>
-</div>
-<div id="modal-7" class="modal" style="display:none;">
-<button class="close-btn" type="button" data-close="1">&times;</button>
-<h3>💧 Drinking water</h3>
-<p><strong>Instruction:</strong> Check water dispenser every time and make sure it’s enough for the next hour.</p>
-<p class="note"><strong>Note:</strong>
-Always have 1 spare water tank in the cupboard.
-Daiohs water tank are stocked in PH gym / main storage.</p>
-</div>
-<div id="modal-8" class="modal" style="display:none;">
-<button class="close-btn" type="button" data-close="1">&times;</button>
-<h3>🪞 Mirror and weight scale</h3>
-<p><strong>Instruction:</strong> Check the 4 mirrors at Onsen basin and the scale on the floor. Please make sure the batteries are working and that the scale functions properly.</p>
-<p class="note"><strong>Note:</strong>
-If the batteries are dead, please replace them with the spare ones at the spa.</p>
-</div>
-<div id="modal-9" class="modal" style="display:none;">
-<button class="close-btn" type="button" data-close="1">&times;</button>
-<h3>💈 Hair dryer</h3>
-<p><strong>Instruction:</strong> Make sure all 4 hair dryers in Onsen are placed correctly and not damaged/missing.</p>
-</div>
-<div id="modal-10" class="modal" style="display:none;">
-<button class="close-btn" type="button" data-close="1">&times;</button>
-<h3>🥛 Used Cups</h3>
-<p><strong>Instruction:</strong> Bring to dishwasher at lvl 5. Pull out from machine and let dry after washed.</p>
-<p class="note"><strong>Note:</strong>
-Can leave in the white tub in the cupboard if there are not many.
-If the white tub is full please follow instruction.</p>
-<img src="images/used-cups.png" alt="Used Cups">
-</div>
-<div id="modal-11" class="modal" style="display:none;">
-<button class="close-btn" type="button" data-close="1">&times;</button>
-<h3>🧖 Used Towels</h3>
-<p><strong>Instruction:</strong> Put in Blue bags in changing room storage and take to lvl 1 towel area when blue bag is full. Leave blue bags in the green cart.</p>
-</div>
-<div id="modal-12" class="modal" style="display:none;">
-<button class="close-btn" type="button" data-close="1">&times;</button>
-<h3>🚨 Restock towels / clean cups / dry amenities</h3>
-<p><strong>Instruction:</strong> Get clean towels from the black towel cart outside of male changing room and top up. Clean cups stock in the cupboard below, dry amenities are under the basin. Please restock every time and make sure all amenities are restocked neatly.</p>
-</div>
-<div id="modal-13" class="modal" style="display:none;">
-<button class="close-btn" type="button" data-close="1">&times;</button>
-<h3>🔓 Locker</h3>
-<p><strong>Instruction:</strong> Use locker key to open the locker in change/shoes area, reset the lockers to 0000 every time.</p>
-</div>
-<div id="modal-14" class="modal" style="display:none;">
-<button class="close-btn" type="button" data-close="1">&times;</button>
-<h3>🧼 ICOR amenities</h3>
-<p><strong>Instruction:</strong> Refill with containers in locker #13. Back up bottles are also placed in locker #13.</p>
-<p class="note"><strong>Note:</strong>
-All bottles are supposed to be full every morning.
-PM shift please refill the bottles during closing.
-If any big container in locker #13 gets empty please bring to PH gym room for refill.</p>
-</div>
-<div id="modal-15" class="modal" style="display:none;">
-<button class="close-btn" type="button" data-close="1">&times;</button>
-<h3>🪒 Other amenities</h3>
-<p><strong>Instruction:</strong> Plastic laundry bags and swimming caps amenities are stored in the secret storage near the entrance, please restock neatly in the tray. Waterproof diapers are also kept in secret cupboard.</p>
-<p class="note"><strong>Note:</strong>
-Make sure we have folded laundry bags stock in secret cupboard always.</p>
-</div>
-<div id="modal-16" class="modal" style="display:none;">
-<button class="close-btn" type="button" data-close="1">&times;</button>
-<h3>🧖‍♀️ Steam sauna</h3>
-<p><strong>Instruction:</strong> Check steam sauna every time for cleanliness. Add few drops of essential oil (placed in storage room) into the tray twice a day to make sure it smells refreshing.</p>
-</div>
-<div id="modal-17" class="modal" style="display:none;">
-<button class="close-btn" type="button" data-close="1">&times;</button>
-<h3>💧 Drinking water</h3>
-<p><strong>Instruction:</strong> Check water dispenser every time and make sure it’s enough for the next hour.</p>
-<p class="note"><strong>Note:</strong>
-Always have 1 spare water tank in the secret storage.
-Daiohs water tank are stocked in PH gym / main storage.</p>
-</div>
-<div id="modal-18" class="modal" style="display:none;">
-<button class="close-btn" type="button" data-close="1">&times;</button>
-<h3>🩱 Swim suit drying machine</h3>
-<p><strong>Instruction:</strong> Located in both changing rooms. Put in swim suits and push the button at least 5 seconds for drying. Make sure no swim suits are left inside.</p>
-<p class="note"><strong>Note:</strong>
-Check the water container below the machine, and empty the water when it’s half full.
-Machine will stop working if the water container reaches its limit.</p>
-</div>
-<div id="modal-19" class="modal" style="display:none;">
-<button class="close-btn" type="button" data-close="1">&times;</button>
-<h3>🪞 Mirror and weight scale</h3>
-<p><strong>Instruction:</strong> Check the 2 mirrors in the pool changing room and the scale on the floor. Please make sure the batteries are working and that the scale functions properly.</p>
-<p class="note"><strong>Note:</strong>
-If the batteries are dead, please replace them with the spare ones at the spa.</p>
-</div>
-<div id="modal-20" class="modal" style="display:none;">
-<button class="close-btn" type="button" data-close="1">&times;</button>
-<h3>💈 Hair dryer</h3>
-<p><strong>Instruction:</strong> Make sure all 2 hair dryers in changing room are placed correctly and not damaged/missing.</p>
-</div>
-<div id="modal-21" class="modal" style="display:none;">
-<button class="close-btn" type="button" data-close="1">&times;</button>
-<h3>🛟 Poolside amenities</h3>
-<p><strong>Instruction:</strong> Make sure the arm rings / float boards / vests are arranged neatly and presentable on both sides of the pool. Any item left on the floor or in the pool please pick up and tidy immediately.</p>
-<p class="note"><strong>Note:</strong>
-Back up arm rings / floats / vests are in the secret storage of both changing rooms. Restock if any item went missing.</p>
-</div>
-<div id="modal-22" class="modal" style="display:none;">
-<button class="close-btn" type="button" data-close="1">&times;</button>
-<h3>🩴 Lounges</h3>
-<p><strong>Instruction:</strong> Make sure no used towel / used cup / garbage is left in poolside lounges area every time when checking.</p>
-</div>
-<div id="modal-23" class="modal" style="display:none;">
-<button class="close-btn" type="button" data-close="1">&times;</button>
-<h3>🧽 Tools</h3>
-<p><strong>Instruction:</strong> Pool cleaning machines (Poole) and net tools should be kept in the storage room in pool area. Brushes, buckets or chemicals are in the storage of both changing rooms.</p>
-</div>
-<div id="modal-24" class="modal" style="display:none;">
-<button class="close-btn" type="button" data-close="1">&times;</button>
-<h3>💧 Drinking water</h3>
-<p><strong>Instruction:</strong> Chilled and room temperature canned water (Itoen) should always be fully stocked in / next to the fridges in both gyms. Check water dispensers and make sure the water in water tanks are enough for the next hour every time.</p>
-<p class="note"><strong>Note:</strong>
-PH gym - Canned water and Daiohs water tank stock are in gym storage room.
-BR gym - Canned water and Daiohs water tank stock are in BOH area.</p>
-</div>
-<div id="modal-25" class="modal" style="display:none;">
-<button class="close-btn" type="button" data-close="1">&times;</button>
-<h3>💪 Machine and weights</h3>
-<p><strong>Instruction:</strong> Make sure the machines are always clean and all weights are lined up correctly and clean. Move the plates left on smith machine back on the racks.</p>
-</div>
-<div id="modal-26" class="modal" style="display:none;">
-<button class="close-btn" type="button" data-close="1">&times;</button>
-<h3>💦 Towels</h3>
-<p><strong>Instruction:</strong> Gym sweat towels should be fully restored and displayed neatly always.</p>
-<p class="note"><strong>Note:</strong>
-Folded gym towels are placed in the cupboards near the entrance in both gyms.</p>
-</div>
-<div id="modal-27" class="modal" style="display:none;">
-<button class="close-btn" type="button" data-close="1">&times;</button>
-<h3>🍎 Fruit amenity</h3>
-<p><strong>Instruction:</strong> Pick up 10 each fruits from IRD in the morning, display nicely in fruits bowls and put out 5 each in PH gym, 3 each in BR gym. Keep the rest fruits in the PH gym storage room fridge.</p>
-<p class="note"><strong>Note:</strong>
-Remove any overripe fruits in fruit bowls.
-You can refill again in the evening if we have any spare fruits left.</p>
-</div>
-<div id="modal-28" class="modal" style="display:none;">
-<button class="close-btn" type="button" data-close="1">&times;</button>
-<h3>🧖‍♂️ Oshibori</h3>
-<p><strong>Instruction:</strong> Wet dry Oshibori towels and roll them up by following the guide. Always leave 12 Oshibori (2 layers) in the fridge.</p>
-<p class="note"><strong>Note:</strong>
-PH gym - Oshibori towels are in gym room, could have back up folded ones in the small fridge cabinet.
-BR gym - Oshibori towels are in BOH area, can bring out to gym and fold.</p>
-</div>
-<div id="modal-29" class="modal" style="display:none;">
-<button class="close-btn" type="button" data-close="1">&times;</button>
-<h3>🧹 Cleaning tools</h3>
-<p><strong>Instruction:</strong> Gym should be cleaned and sanitized once an hour. Clean machines and equipment with green cleaning cloth, and wipe down mirrors with blue cloth or glass cleaning tool.</p>
-<p class="note"><strong>Note:</strong>
-PH gym - Cleaning tools are kept in PH gym room.
-BR gym - Cleaning tools are kept in the cupboard, next to used towel bin.</p>
-</div>
-<div id="modal-30" class="modal" style="display:none;">
-<button class="close-btn" type="button" data-close="1">&times;</button>
-<h3>🚮 Garbage and used towels</h3>
-<p><strong>Instruction:</strong> Take out any garbage / food waste and empty towels / canned bin every day during closing.</p>
-<p class="note"><strong>Note:</strong>
-Used gym towels: Put in blue bag and leave in green cart at lvl 1. (Blue bags in BR side are in BOH area.)
-Used Oshibori: Gather in plastic bag and bring to uniform room, leave in the box (marked “Oshibori”) at the bottom of the shelf.
-Used canned water: Put in plastic bag and bring to garage area at lvl 1, put on sticker after weight then leave it in the correct waste-sorting bin.
-Food waste: Gather all food waste with the biodegradable garbage bag, weigh and put on sticker at lvl 1 garbage area, leave in the fridge room.</p>
-</div>
-<div id="modal-31" class="modal" style="display:none;">
-<button class="close-btn" type="button" data-close="1">&times;</button>
-<h3>🌡️ Temperature</h3>
-<p><strong>Instruction:</strong> The temperature in both gyms should always be 22–23 °C. Any temperature lower or higher than 22–23 °C please create HOTSOS or call ENG directly to adjust.</p>
-</div>
-<div id="modal-32" class="modal" style="display:none;">
-<button class="close-btn" type="button" data-close="1">&times;</button>
-<h3>🎵 BGM</h3>
-<p><strong>Instruction:</strong> BGM in both gyms is playing 24 hours. If the music is not working please check the music control machine or contact ENG for checking.</p>
-<p class="note"><strong>Note:</strong>
-PH gym - Music channel should be channel 3, 4 or 5.
-BR gym - Music channel should be channel 1, 7 or 8.</p>
-</div>
-<div id="modal-33" class="modal" style="display:none;">
-<button class="close-btn" type="button" data-close="1">&times;</button>
-<h3>🧳 Lost and Found Items</h3>
-<p><strong>Instruction:</strong> Fill in the L&amp;F sheets and bring to Housekeeping office. Message in L&amp;F chat with picture and details in Teams.</p>
-<img src="images/lost-found.png" alt="Lost and Found Items">
-</div>
-<div id="modal-34" class="modal" style="display:none;">
-<button class="close-btn" type="button" data-close="1">&times;</button>
-<h3>🪪 Lost Room keys</h3>
-<p><strong>Instruction:</strong> Bring directly to front desk.</p>
-</div>
-<div id="modal-35" class="modal" style="display:none;">
-<button class="close-btn" type="button" data-close="1">&times;</button>
-<h3>🪥 No Dry Amenities</h3>
-<p><strong>Instruction:</strong> Check PH gym storage room and restock, inform wellness attendant in Teams.</p>
-<p class="note"><strong>Note:</strong>
-Refill immediately after the last set is taken.</p>
-<img src="images/no-dry-amenities.png" alt="No Dry Amenities">
-</div>
+      input.addEventListener('input', function () {
+        var q = this.value.toLowerCase().trim();
+        var groups = document.querySelectorAll('details.section-group');
 
-<footer>
-  Wellness Team © 2025 | Internal Use Only<br>
-  Version 1.0 by JT
-</footer>
+        groups.forEach(function (group) {
+          var items = group.querySelectorAll('details.section-item');
+          if (!q) {
+            group.style.display = '';
+            items.forEach(function (it) { it.style.display = ''; });
+            return;
+          }
 
-<script>
-const searchInput = document.getElementById('searchInput');
-const sections = Array.from(document.querySelectorAll('.section'));
-const backdrop = document.getElementById('modalBackdrop');
-const modals = Array.from(document.querySelectorAll('.modal'));
-const noResults = document.getElementById('noResults');
-
-function closeAllModals() {
-  modals.forEach(m => m.style.display = 'none');
-  backdrop.style.display = 'none';
-}
-
-document.addEventListener('click', function(e) {
-  const trigger = e.target.closest('[data-modal-trigger]');
-  if (trigger) {
-    const id = trigger.getAttribute('data-modal-trigger');
-    const modal = document.getElementById(id);
-    if (modal) {
-      closeAllModals();
-      backdrop.style.display = 'flex';
-      modal.style.display = 'block';
-    }
-  }
-  if (e.target === backdrop || e.target.hasAttribute('data-close')) {
-    closeAllModals();
-  }
-});
-
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closeAllModals();
-});
-
-function applyFilter() {
-  const q = (searchInput.value || '').toLowerCase().trim();
-  let anyVisible = false;
-  sections.forEach(section => {
-    const items = Array.from(section.querySelectorAll('.card'));
-    let sectionHasVisible = false;
-    items.forEach(card => {
-      const key = (card.getAttribute('data-key') || '').toLowerCase();
-      const match = !q || key.includes(q);
-      card.style.display = match ? '' : 'none';
-      if (match) sectionHasVisible = true;
+          var groupMatch = false;
+          items.forEach(function (it) {
+            var text = it.innerText.toLowerCase();
+            var match = text.indexOf(q) !== -1;
+            it.style.display = match ? '' : 'none';
+            if (match) groupMatch = true;
+          });
+          group.style.display = groupMatch ? '' : 'none';
+        });
+      });
     });
-    section.style.display = sectionHasVisible ? '' : 'none';
-    if (sectionHasVisible) anyVisible = true;
-  });
-  noResults.style.display = anyVisible ? 'none' : 'block';
-}
-
-searchInput.addEventListener('input', applyFilter);
-applyFilter();
-</script>
-
+  </script>
 </body>
 </html>
